@@ -1,0 +1,18 @@
+services:
+  wakapi:
+    user: "0:0"
+    tty: true
+    stdin_open: true
+    image: ghcr.io/muety/wakapi:latest
+    ports:
+      - 3000:3000
+    restart: unless-stopped
+    environment:
+      WAKAPI_DB_TYPE: "postgres"
+      WAKAPI_DB_NAME: wakapi
+      WAKAPI_DB_USER: postgres
+      WAKAPI_DB_HOST: ${DOCKER_COMPOSE_WAKAPI_DB_HOST:-db}
+      WAKAPI_DB_PORT: 5432
+      WAKAPI_DB_PASSWORD: ${DOCKER_COMPOSE_WAKAPI_DB_PASSWORD:-password}
+      WAKAPI_PASSWORD_SALT: ${DOCKER_COMPOSE_WAKAPI_PASSWORD_SALT:-salt}
+      WAKAPI_MAIL_SMTP_PASS: changeme
